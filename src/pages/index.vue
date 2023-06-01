@@ -88,42 +88,37 @@
             <h2>最新博客</h2>
           </header>
           <div class="posts">
-            <article data-aos="fade-up" data-aos-duration="800">
+            <!-- 可以直接使用 ContentList组件查询-->
+            <!-- <ContentList :query="query" path="/articles">
+              <template #default="{ list }">
+                <article data-aos="fade-up" data-aos-duration="800" v-for="article in  list" :key="article._path">
+                  <a href="#" class="image"><img src="~assets/images/pexels-andrea-davis-3653849.jpg" alt="" /></a>
+                  <h3>{{ article.title }}</h3>
+                  <p>
+                    {{ article.description }}
+                  </p>
+                  {{ article }}
+                  <ul class="actions">
+                    <li>
+                      <NuxtLink to="#" @click="toDetail(article._path)" class="button"> 更多 </NuxtLink>
+                    </li>
+                  </ul>
+                </article>
+              </template>
+              <template #not-found>
+                <p>No articles found.</p>
+              </template>
+            </ContentList> -->
+
+            <article data-aos="fade-up" data-aos-duration="800" v-for="article in articlesList" :key="article._path">
               <a href="#" class="image"><img src="~assets/images/pexels-andrea-davis-3653849.jpg" alt="" /></a>
-              <h3>什么是SPA页面？</h3>
+              <h3>{{ article.title }}</h3>
               <p>
-                SPA（single-page
-                application），翻译过来就是单页应用SPA是一种网络应用程序或网站的模型，它通过动态重写当前页面来与用户交互，这种方法避免了页面之间切换打断用户体验在单页应用中，所有必要的代码（HTML、JavaScript和CSS）都通过单个页面的加载而检索，或者根据需要（通常是为响应用户操作）动态装载适当的资源并添加到页面页面在任何时间点都不会重新加载
+                {{ article.description }}
               </p>
               <ul class="actions">
                 <li>
-                  <NuxtLink to="" class="button"> 更多 </NuxtLink>
-                </li>
-              </ul>
-            </article>
-            <article data-aos="fade-up" data-aos-duration="1200">
-              <a href="#" class="image"><img src="~assets/images/pexels-andrea-davis-3653849.jpg" alt="" /></a>
-              <h3>什么是SPA页面？</h3>
-              <p>
-                SPA（single-page
-                application），翻译过来就是单页应用SPA是一种网络应用程序或网站的模型，它通过动态重写当前页面来与用户交互，这种方法避免了页面之间切换打断用户体验在单页应用中，所有必要的代码（HTML、JavaScript和CSS）都通过单个页面的加载而检索，或者根据需要（通常是为响应用户操作）动态装载适当的资源并添加到页面页面在任何时间点都不会重新加载
-              </p>
-              <ul class="actions">
-                <li>
-                  <NuxtLink to="" class="button"> 更多 </NuxtLink>
-                </li>
-              </ul>
-            </article>
-            <article data-aos="fade-up" data-aos-duration="1400">
-              <a href="#" class="image"><img src="~assets/images/pexels-andrea-davis-3653849.jpg" alt="" /></a>
-              <h3>什么是SPA页面？</h3>
-              <p>
-                SPA（single-page
-                application），翻译过来就是单页应用SPA是一种网络应用程序或网站的模型，它通过动态重写当前页面来与用户交互，这种方法避免了页面之间切换打断用户体验在单页应用中，所有必要的代码（HTML、JavaScript和CSS）都通过单个页面的加载而检索，或者根据需要（通常是为响应用户操作）动态装载适当的资源并添加到页面页面在任何时间点都不会重新加载
-              </p>
-              <ul class="actions">
-                <li>
-                  <NuxtLink to="" class="button"> 更多 </NuxtLink>
+                  <div @click="toDetail(article._path)" class="button"> 更多 </div>
                 </li>
               </ul>
             </article>
@@ -138,12 +133,23 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-let currentToggle = false;
+import { useRouter } from 'vue-router';
+let currentToggle = ref(false);
 const toggle = () => {
-  currentToggle = !currentToggle;
+  currentToggle.value = !currentToggle.value;
 }
-ref({
-  currentToggle,
-  toggle
-})
+// 使用content插件查询最近的3条文章
+const articlesList = await queryContent('/articles')
+  .sort({ date: 1 }).limit(3)
+  .find()
+
+const router = useRouter()
+const toDetail = (item: any) => {
+  router.push({
+    path: '/articles',
+    query: {
+      _path: item
+    }
+  })
+}
 </script>

@@ -49,65 +49,21 @@
     </div>
   </div>
 </template>
-<!-- <script>
-export default {
-  name: "myAside",
-  components: {},
-  props: [],
-  data() {
-    return { selectedNavItem: false };
-  },
-  watch: {},
-  computed: {},
-  methods: {
-    toggleAside() {
-      this.selectedNavItem = !this.selectedNavItem;
-      if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-        this.$emit("change", this.selectedNavItem);
-      }
-    },
-  },
-  created() { },
-  mounted() {
-    if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-      this.selectedNavItem = true;
-    } else {
-      this.selectedNavItem = false;
-    }
-    this.$emit("change", this.selectedNavItem);
-  },
-};
-</script> -->
 <script setup lang="ts">
 import { ref } from "vue"
-let selectedNavItem = false
+let selectedNavItem = ref(false)
+const emit = defineEmits()
 let toggleAside = () => {
-  selectedNavItem = !selectedNavItem;
+  selectedNavItem.value = !selectedNavItem.value;
   if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    $emit("change", selectedNavItem);
+    emit("change", selectedNavItem);
   }
-},
+}
+
 </script>
-<script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-</script>
-<script setup lang="ts"></script>
-  this.selectedNavItem = !this.selectedNavItem;
-  if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    this.$emit("change", this.selectedNavItem);
-  }
-},
-</script>
-<script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-</script>
-<script setup lang="ts"></script>
-<script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-</script>
-<script setup lang="ts"></script>
-<script setup lang="ts"></script>
+
+
+
+
+
 <style lang="less" scoped></style>
