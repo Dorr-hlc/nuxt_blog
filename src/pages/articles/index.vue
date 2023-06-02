@@ -18,10 +18,9 @@ import { ref } from "vue";
 import type { QueryBuilderParams } from "@nuxt/content/dist/runtime/types";
 const query: QueryBuilderParams = {
   path: "/articles",
-//   where: [{ layout: "article" }],
+  //   where: [{ layout: "article" }],
   limit: 2,
   sort: [{ date: -1 }],
 };
-
 </script>
 <style lang="less" scoped></style>

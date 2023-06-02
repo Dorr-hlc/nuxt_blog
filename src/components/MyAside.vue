@@ -32,9 +32,7 @@
 
         <section>
           <ul class="contact">
-            <li class="icon solid fa-envelope">
-              1726660621@qq.com
-            </li>
+            <li class="icon solid fa-envelope">1726660621@qq.com</li>
             <li class="icon solid fa-phone">17380127492</li>
             <li class="icon solid fa-home">四川省成都市水碾河</li>
           </ul>
@@ -45,7 +43,9 @@
           <p class="copyright">@版权所有-HLC的个人博客，记录生活，成长学习</p>
         </footer>
       </div>
-      <nuxt-link to="javascript:;" class="toggle" @click="toggleAside">Toggle</nuxt-link>
+      <nuxt-link to="javascript:;" class="toggle"
+        >Toggle</nuxt-link
+      >
     </div>
   </div>
 </template>
@@ -79,35 +79,14 @@ export default {
 };
 </script> -->
 <script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-let toggleAside = () => {
-  selectedNavItem = !selectedNavItem;
-  if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    $emit("change", selectedNavItem);
-  }
-},
+import { ref } from "vue";
+let selectedNavItem = false;
+// let toggleAside = () => {
+//   selectedNavItem = !selectedNavItem;
+//   if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+//     $emit("change", selectedNavItem);
+//   }
+// };
 </script>
-<script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-</script>
-<script setup lang="ts"></script>
-  this.selectedNavItem = !this.selectedNavItem;
-  if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    this.$emit("change", this.selectedNavItem);
-  }
-},
-</script>
-<script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-</script>
-<script setup lang="ts"></script>
-<script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = false
-</script>
-<script setup lang="ts"></script>
-<script setup lang="ts"></script>
+
 <style lang="less" scoped></style>
