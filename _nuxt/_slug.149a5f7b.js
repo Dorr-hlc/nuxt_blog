@@ -1,0 +1,1 @@
+import{a as s,C as a,l,r,u as n,o}from"./entry.b1eaf407.js";const c=s({__name:"_slug",setup(u){let e={title:"2112",tags:"12321"};return a({files:e}),(t,f)=>(o(),l("div",null,[r(t.$slots,"default",{list:n(e)})]))}});export{c as default};
