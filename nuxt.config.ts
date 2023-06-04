@@ -18,4 +18,7 @@ export default defineNuxtConfig({
     css: [
         "@/assets/css/main.css"
     ],
+    router: {
+        base: '/nuxt_bolg/'
+    }
 } as NuxtConfig)
