@@ -5,6 +5,16 @@ export default defineNuxtConfig({
     modules: [
         '@nuxt/content'
     ],
+    content: {
+        highlight: {
+            preload: [
+                'javascript',
+                'typescript',
+                'vue',
+                'vue-html'
+            ],
+        },
+    },
     css: [
         "@/assets/css/main.css"
     ],

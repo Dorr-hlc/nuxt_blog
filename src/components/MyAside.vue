@@ -43,50 +43,25 @@
           <p class="copyright">@版权所有-HLC的个人博客，记录生活，成长学习</p>
         </footer>
       </div>
-      <nuxt-link to="javascript:;" class="toggle"
-        >Toggle</nuxt-link
-      >
+      <nuxt-link to="javascript:;" class="toggle">Toggle</nuxt-link>
     </div>
   </div>
 </template>
-<!-- <script>
-export default {
-  name: "myAside",
-  components: {},
-  props: [],
-  data() {
-    return { selectedNavItem: false };
-  },
-  watch: {},
-  computed: {},
-  methods: {
-    toggleAside() {
-      this.selectedNavItem = !this.selectedNavItem;
-      if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-        this.$emit("change", this.selectedNavItem);
-      }
-    },
-  },
-  created() { },
-  mounted() {
-    if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-      this.selectedNavItem = true;
-    } else {
-      this.selectedNavItem = false;
-    }
-    this.$emit("change", this.selectedNavItem);
-  },
-};
-</script> -->
 <script setup lang="ts">
-import { ref } from "vue";
-let selectedNavItem = false;
-// let toggleAside = () => {
-//   selectedNavItem = !selectedNavItem;
-//   if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-//     $emit("change", selectedNavItem);
-//   }
-// };
+import { ref } from "vue"
+let selectedNavItem = ref(false)
+const emit = defineEmits()
+let toggleAside = () => {
+  selectedNavItem.value = !selectedNavItem.value;
+  if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+    emit("change", selectedNavItem);
+  }
+}
+
 </script>
+
+
+
+
 
 <style lang="less" scoped></style>
