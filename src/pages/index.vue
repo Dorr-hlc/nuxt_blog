@@ -110,15 +110,26 @@
               </template>
             </ContentList> -->
 
-            <article data-aos="fade-up" data-aos-duration="800" v-for="article in articlesList" :key="article._path">
-              <a href="#" class="image"><img src="~assets/images/pexels-andrea-davis-3653849.jpg" alt="" /></a>
+            <article
+              data-aos="fade-up"
+              data-aos-duration="800"
+              v-for="article in articlesList"
+              :key="article._path"
+            >
+              <a href="#" class="image"
+                ><img
+                  src="~assets/images/pexels-andrea-davis-3653849.jpg"
+                  alt=""
+              /></a>
               <h3>{{ article.title }}</h3>
               <p>
                 {{ article.description }}
               </p>
               <ul class="actions">
                 <li>
-                  <div @click="toDetail(article._path)" class="button"> 更多 </div>
+                  <div @click="toDetail(article._path)" class="button">
+                    更多
+                  </div>
                 </li>
               </ul>
             </article>
@@ -126,30 +137,26 @@
         </section>
       </div>
     </div>
-
-
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 let currentToggle = ref(false);
 const toggle = () => {
   currentToggle.value = !currentToggle.value;
-}
+};
 // 使用content插件查询最近的3条文章
-const articlesList = await queryContent('/articles')
-  .sort({ date: 1 }).limit(3)
-  .find()
+const articlesList = await queryContent("/articles")
+  .sort({ date: 1 })
+  .limit(3)
+  .find();
 
-const router = useRouter()
+const router = useRouter();
 const toDetail = (item: any) => {
   router.push({
-    path: '/articles',
-    query: {
-      _path: item
-    }
-  })
-}
+    path: item,
+  });
+};
 </script>
