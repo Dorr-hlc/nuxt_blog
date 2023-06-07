@@ -1,38 +1,15 @@
 <template>
-  <div id="wrapper">
-    <!-- Sidebar -->
-    <myAside @change="toggle" />
-    <!-- Main -->
-    <div id="main" :class="{ inactive: currentToggle }">
-      <div class="inner">
-        <!-- Header -->
-        <MyHeader />
-        <!-- Section -->
-        <section>
-          <header class="major">
-            <h2>博客列表</h2>
-          </header>
-          <div class="blog-box">
-            <div class="posts">
-              <article v-for="_post in articlesList" :key="_post._id">
-                <div class="info">
-                  <div class="time">
-                    <span class="post-time">{{ _post.date }}</span>
-                    <span class="post-year"></span>
-                  </div>
-
-                  <h3>{{ _post.title }}</h3>
-                </div>
-
-                <p class="desc">
-                  {{ _post.title }}
-                </p>
-
-                <ul class="actions">
-                  <li @click="toDetail(_post.title)">阅读更多</li>
-                </ul>
-              </article>
-            </div>
+  <div>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <myAside @change="toggle" />
+      <!-- Main -->
+      <div id="main" :class="{ inactive: currentToggle }">
+        <div class="inner">
+          <!-- Header -->
+          <MyHeader />
+          <div class="article-content">
+            <ContentRenderer :value="aa" />
             <!-- partial:index.partial.html -->
             <div class="user-card">
               <div class="container">
@@ -77,104 +54,37 @@
             <!-- end user-card -->
             <!-- partial -->
           </div>
-        </section>
+
+          <!-- Section -->
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
+const { title } = route.query;
+const articlesList = await queryContent("/articles").find();
 let currentToggle = ref(false);
+let aa = ref(
+  computed(() => {
+    return articlesList.filter((item) => item.title === title)[0];
+  })
+);
 const toggle = () => {
   currentToggle.value = !currentToggle.value;
 };
-const articlesList = await queryContent("/articles").find();
-console.log(articlesList);
-const router = useRouter();
-const toDetail = (item: any) => {
-  router.push({
-    path: "/posts",
-    query: {
-      title: item,
-    },
-  });
-};
 </script>
 <style lang="less" scoped>
-.blog-box {
+.article-content {
   display: flex;
-  align-items: center;
-
-  article {
-    position: relative;
-    width: 70%;
-    background: #fff;
-    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    padding: 24px;
-
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
-
-    &::before {
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      content: "";
-      display: inline-block;
-      width: 6px;
-      height: 100%;
-      background: #f56a6a;
-      border-radius: 10px 0 0 10px;
-    }
-  }
-
-  .userinfo {
-    width: 30%;
-  }
-
-  ul.actions {
-    justify-content: flex-end;
-  }
-
-  .info {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: #000;
-
-    h3 {
-      margin: 0px;
-    }
-
-    .time {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #f56a6a;
-      color: #fff;
-      font-size: 16px;
-      line-height: 1;
-      font-weight: 600;
-      border-radius: 4px;
-      padding: 2px 5px;
-      margin-right: 10px;
-
-      span {
-        display: inline-block;
-      }
-
-      .post-year {
-        font-size: 14px;
-      }
-    }
-  }
-
-  .desc {
-    margin: 30px 0;
-  }
+  align-items: flex-start;
+  margin: 40px 0;
+}
+article {
+  width: 70%;
 }
 
 .user-card {
@@ -218,24 +128,20 @@ const toDetail = (item: any) => {
   border-top: 1px solid #ced5e0;
   width: 240px;
 }
-
 .stats .followers,
 .stats .following,
 .stats .stories {
   display: inline-block;
   padding: 6px 10px 0;
 }
-
 .stats .followers,
 .stats .following {
   border-right: 1px solid #ced5e0;
 }
-
 .stats .value {
   font-size: 18px;
   font-weight: 600;
 }
-
 .stats .label {
   display: block;
   font-size: 14px;

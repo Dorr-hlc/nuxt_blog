@@ -3,14 +3,11 @@ import { NuxtConfig } from 'nuxt/config';
 
 
 export default defineNuxtConfig({
-    ssr: false,
-    nitro: {
-        preset: 'service-worker'
-    },
+    ssr: true,
+    target: "static",
     srcDir: 'src/', //指定app.vue 和pages目录都放在src目录下
     modules: [
-        '@nuxt/content'
-    ],
+        '@nuxt/content'],
     content: {
         highlight: {
             preload: [
@@ -21,10 +18,11 @@ export default defineNuxtConfig({
             ],
         },
     },
+
     css: [
         "@/assets/css/main.css"
     ],
     app: {
-        // baseURL: '/nuxt_blog/',
+        baseURL: '/nuxt_blog/',
     }
 } as NuxtConfig)
