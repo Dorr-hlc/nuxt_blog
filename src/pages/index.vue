@@ -88,28 +88,6 @@
             <h2>最新博客</h2>
           </header>
           <div class="posts">
-            <!-- 可以直接使用 ContentList组件查询-->
-            <!-- <ContentList :query="query" path="/articles">
-              <template #default="{ list }">
-                <article data-aos="fade-up" data-aos-duration="800" v-for="article in  list" :key="article._path">
-                  <a href="#" class="image"><img src="~assets/images/pexels-andrea-davis-3653849.jpg" alt="" /></a>
-                  <h3>{{ article.title }}</h3>
-                  <p>
-                    {{ article.description }}
-                  </p>
-                  {{ article }}
-                  <ul class="actions">
-                    <li>
-                      <NuxtLink to="#" @click="toDetail(article._path)" class="button"> 更多 </NuxtLink>
-                    </li>
-                  </ul>
-                </article>
-              </template>
-              <template #not-found>
-                <p>No articles found.</p>
-              </template>
-            </ContentList> -->
-
             <article
               data-aos="fade-up"
               data-aos-duration="800"
@@ -127,7 +105,7 @@
               </p>
               <ul class="actions">
                 <li>
-                  <div @click="toDetail(article._path)" class="button">
+                  <div @click="toDetail(article.title)" class="button">
                     更多
                   </div>
                 </li>
@@ -144,9 +122,11 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 let currentToggle = ref(false);
+console.log(currentToggle);
 const toggle = () => {
   currentToggle.value = !currentToggle.value;
 };
+
 // 使用content插件查询最近的3条文章
 const articlesList = await queryContent("/articles")
   .sort({ date: 1 })
@@ -155,8 +135,13 @@ const articlesList = await queryContent("/articles")
 
 const router = useRouter();
 const toDetail = (item: any) => {
+  console.log(item);
+
   router.push({
-    path: item,
+    path: "/posts",
+    query: {
+      title: item,
+    },
   });
 };
 </script>

@@ -43,25 +43,22 @@
           <p class="copyright">@版权所有-HLC的个人博客，记录生活，成长学习</p>
         </footer>
       </div>
-      <nuxt-link to="javascript:;" class="toggle">Toggle</nuxt-link>
+      <nuxt-link to="javascript:;" class="toggle" @click="toggleAside"
+        >Toggle</nuxt-link
+      >
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue"
-let selectedNavItem = ref(false)
-const emit = defineEmits()
+import { ref } from "vue";
+let selectedNavItem = ref(false);
+const emit = defineEmits();
 let toggleAside = () => {
   selectedNavItem.value = !selectedNavItem.value;
   if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
     emit("change", selectedNavItem);
   }
-}
-
+};
 </script>
-
-
-
-
 
 <style lang="less" scoped></style>

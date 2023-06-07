@@ -90,7 +90,7 @@ const toggle = () => {
   currentToggle.value = !currentToggle.value;
 };
 const articlesList = await queryContent("/articles").find();
-console.log(articlesList);
+
 const router = useRouter();
 const toDetail = (item: any) => {
   router.push({

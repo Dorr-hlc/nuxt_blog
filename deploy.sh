@@ -21,6 +21,6 @@ git commit -m 'deploy'
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # 请把 penggang-home/blog-two.git 换成你的项目地址
-git push -f https://github.com/Dorr-hlc/nuxt_bolg.git master:gh-pages
+git push -f https://github.com/Dorr-hlc/nuxt_blog.git master:gh-pages
 
 cd -
