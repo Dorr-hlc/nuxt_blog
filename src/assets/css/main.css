@@ -3111,3 +3111,22 @@ button:disabled,
   margin-top: 0;
   padding-top: 0;
 }
+
+@media screen and (max-width: 991px) {
+  #wrapper {
+    flex-direction: column;
+  }
+  #main {
+    width: 100%;
+  }
+  #sidebar,
+  #sidebar > .inner {
+    width: 18em;
+  }
+  #sidebar.inactive {
+    margin-left: -18em;
+  }
+  #sidebar .toggle {
+    left: 18em;
+  }
+}

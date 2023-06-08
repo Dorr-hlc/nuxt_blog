@@ -50,7 +50,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 let selectedNavItem = ref(false);
 const emit = defineEmits();
 let toggleAside = () => {
@@ -59,6 +59,9 @@ let toggleAside = () => {
     emit("change", selectedNavItem);
   }
 };
+onMounted(() => {
+  selectedNavItem.value = true;
+});
 </script>
 
 <style lang="less" scoped></style>

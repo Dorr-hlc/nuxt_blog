@@ -10,49 +10,6 @@
           <MyHeader />
           <div class="article-content">
             <ContentRenderer :value="aa" />
-            <!-- partial:index.partial.html -->
-            <div class="user-card">
-              <div class="container">
-                <img
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cookies.jpg"
-                  alt="cookies"
-                  class="hero-image"
-                />
-
-                <div class="information">
-                  <img
-                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/avatar.png"
-                    alt="avatar"
-                    class="avatar"
-                  />
-                  <div class="name">Dorr</div>
-                  <div class="position">道阻且长，行则将至</div>
-
-                  <div class="stats">
-                    <span class="followers">
-                      <span class="value">323</span>
-                      <span class="label">点赞</span>
-                    </span>
-                    <!-- end followers -->
-
-                    <span class="following">
-                      <span class="value">290</span>
-                      <span class="label">收藏</span>
-                    </span>
-
-                    <span class="stories">
-                      <span class="value">22</span>
-                      <span class="label">文章</span>
-                    </span>
-                  </div>
-                  <!-- end stats -->
-                </div>
-                <!-- end information -->
-              </div>
-              <!-- end container -->
-            </div>
-            <!-- end user-card -->
-            <!-- partial -->
           </div>
 
           <!-- Section -->
@@ -62,7 +19,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
 const { title } = route.query;
@@ -76,11 +33,10 @@ let aa = ref(
 const toggle = () => {
   currentToggle.value = !currentToggle.value;
 };
+
 </script>
 <style lang="less" scoped>
 .article-content {
-  display: flex;
-  align-items: flex-start;
   margin: 40px 0;
 }
 article {
