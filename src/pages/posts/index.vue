@@ -9,31 +9,34 @@
           <!-- Header -->
           <MyHeader />
           <div class="article-content">
-            <ContentRenderer :value="aa" />
+            <ContentRenderer :value="detail" />
           </div>
-
           <!-- Section -->
         </div>
       </div>
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { computed, ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
-const route = useRoute();
-const { title } = route.query;
-const articlesList = await queryContent("/articles").find();
-let currentToggle = ref(false);
-let aa = ref(
-  computed(() => {
-    return articlesList.filter((item) => item.title === title)[0];
-  })
-);
-const toggle = () => {
-  currentToggle.value = !currentToggle.value;
-};
+<script lang="ts">
+import { articlesInfo } from "@/store/articles";
+import { ref } from "vue";
+import publicMethos from "@/hooks/publicMethos";
 
+export default defineComponent({
+  async setup() {
+    let { toggle, currentToggle, toDetail, title } = publicMethos();
+    const useArticle = articlesInfo();
+    const detail = ref();
+    await useArticle.getAllArticle();
+    detail.value = useArticle.filteredItems(title);
+    return {
+      toggle,
+      currentToggle,
+      toDetail,
+      detail,
+    };
+  },
+});
 </script>
 <style lang="less" scoped>
 .article-content {

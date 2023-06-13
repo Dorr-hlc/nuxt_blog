@@ -4,6 +4,11 @@ export const articlesInfo = defineStore("articles", {
         recentArticle: {},
         allArticle: {}
     }),
+    getters: {
+        filteredItems: (state) => (title: any) => {
+            return Object.values(state.allArticle).filter((item: any) => item.title === title)[0]
+        }
+    },
     actions: {
         async getRecentArticle() {
             this.recentArticle = await queryContent("/articles")

@@ -1896,6 +1896,7 @@ ul.actions {
 ul.actions li {
   padding: 0 0 0 1em;
   vertical-align: middle;
+  cursor: pointer;
 }
 ul.actions.special {
   -moz-justify-content: center;

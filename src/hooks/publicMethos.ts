@@ -1,11 +1,13 @@
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 export default function () {
   let currentToggle: any = ref(false);
   const toggle: any = () => {
     currentToggle.value = !currentToggle.value;
   };
   const router = useRouter();
+  const route = useRoute();
+  const { title } = route.query;
   // 使用content插件查询最近的3条文章
   async function getArticlesList() {
     return await queryContent("/articles")
@@ -29,6 +31,7 @@ export default function () {
     getArticlesList,
     getAllArticlesList,
     toDetail,
-    currentToggle
+    currentToggle,
+    title
   }
 }

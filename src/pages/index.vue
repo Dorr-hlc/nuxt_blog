@@ -117,18 +117,14 @@
 
 <script lang="ts">
 import { articlesInfo } from "@/store/articles";
-import { onMounted } from "vue";
 import publicMethos from "@/hooks/publicMethos";
 export default defineComponent({
-  setup() {
+  async setup() {
     let { toggle, currentToggle, getArticlesList, toDetail } = publicMethos();
     const articlesList = ref();
     const useArticle = articlesInfo();
-
-    onMounted(async () => {
-      await useArticle.getRecentArticle();
-      articlesList.value = await useArticle.recentArticle;
-    });
+    await useArticle.getRecentArticle();
+    articlesList.value = await useArticle.recentArticle;
     return {
       articlesList,
       toggle,
