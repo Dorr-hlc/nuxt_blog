@@ -57,11 +57,11 @@ let toggleAside = () => {
   selectedNavItem.value = !selectedNavItem.value;
   if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
     emit("change", selectedNavItem);
+    onMounted(() => {
+      selectedNavItem.value = true;
+    });
   }
 };
-onMounted(() => {
-  selectedNavItem.value = true;
-});
 </script>
 
 <style lang="less" scoped></style>

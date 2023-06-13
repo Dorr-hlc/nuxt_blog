@@ -3,11 +3,12 @@ import { NuxtConfig } from 'nuxt/config';
 
 
 export default defineNuxtConfig({
-    ssr: true,
     target: "static",
     srcDir: 'src/', //指定app.vue 和pages目录都放在src目录下
     modules: [
-        '@nuxt/content'],
+        '@nuxt/content',
+        '@pinia/nuxt',
+    ],
     content: {
         highlight: {
             preload: [

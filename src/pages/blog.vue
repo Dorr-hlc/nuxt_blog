@@ -82,24 +82,27 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-let currentToggle = ref(false);
-const toggle = () => {
-  currentToggle.value = !currentToggle.value;
-};
-const articlesList = await queryContent("/articles").find();
-
-const router = useRouter();
-const toDetail = (item: any) => {
-  router.push({
-    path: "/posts",
-    query: {
-      title: item,
-    },
-  });
-};
+<script lang="ts">
+import { articlesInfo } from "@/store/articles";
+import { onMounted } from "vue";
+import publicMethos from "@/hooks/publicMethos";
+export default defineComponent({
+  setup() {
+    let { toggle, currentToggle, toDetail } = publicMethos();
+    const articlesList = ref();
+    const useArticle = articlesInfo();
+    onMounted(async () => {
+      await useArticle.getAllArticle();
+      articlesList.value = await useArticle.allArticle;
+    });
+    return {
+      articlesList,
+      toggle,
+      currentToggle,
+      toDetail,
+    };
+  },
+});
 </script>
 <style lang="less" scoped>
 .blog-box {

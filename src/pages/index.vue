@@ -7,9 +7,7 @@
     <div id="main" :class="{ inactive: currentToggle }">
       <div class="inner">
         <!-- Header -->
-
         <MyHeader></MyHeader>
-
         <!-- Banner -->
         <section id="banner">
           <div class="content" data-aos="fade-right" data-aos-duration="800">
@@ -36,7 +34,6 @@
             <img src="~assets/images/pexels-kevin-bidwell-2042281.jpg" alt="" />
           </span>
         </section>
-
         <!-- Section -->
         <section>
           <header class="major">
@@ -118,30 +115,26 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-let currentToggle = ref(false);
-console.log(currentToggle);
-const toggle = () => {
-  currentToggle.value = !currentToggle.value;
-};
+<script lang="ts">
+import { articlesInfo } from "@/store/articles";
+import { onMounted } from "vue";
+import publicMethos from "@/hooks/publicMethos";
+export default defineComponent({
+  setup() {
+    let { toggle, currentToggle, getArticlesList, toDetail } = publicMethos();
+    const articlesList = ref();
+    const useArticle = articlesInfo();
 
-// 使用content插件查询最近的3条文章
-const articlesList = await queryContent("/articles")
-  .sort({ date: 1 })
-  .limit(3)
-  .find();
-
-const router = useRouter();
-const toDetail = (item: any) => {
-  console.log(item);
-
-  router.push({
-    path: "/posts",
-    query: {
-      title: item,
-    },
-  });
-};
+    onMounted(async () => {
+      await useArticle.getRecentArticle();
+      articlesList.value = await useArticle.recentArticle;
+    });
+    return {
+      articlesList,
+      toggle,
+      currentToggle,
+      toDetail,
+    };
+  },
+});
 </script>
