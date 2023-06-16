@@ -24,6 +24,6 @@ export default defineNuxtConfig({
         "@/assets/css/main.css"
     ],
     app: {
-        baseURL: '/nuxt_blog/',
+        baseURL: '/myblog/',
     }
 } as NuxtConfig)
